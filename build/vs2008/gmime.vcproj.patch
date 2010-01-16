@@ -1,0 +1,13 @@
+diff --git a/build/vs2008/gmime.vcproj b/build/vs2008/gmime.vcproj
+index 7eab3f4..93aa083 100644
+--- a/build/vs2008/gmime.vcproj
++++ b/build/vs2008/gmime.vcproj
+@@ -45,7 +45,7 @@
+ 			<Tool
+ 				Name="VCCLCompilerTool"
+ 				Optimization="0"
+-				AdditionalIncludeDirectories="&quot;..\..\&quot;; &quot;..\..\util&quot;"
++				AdditionalIncludeDirectories="..\..\;..\..\util;&quot;C:\GTK+2\include\glib-2.0&quot;;&quot;C:\GTK+2\lib\glib-2.0\include&quot;;&quot;C:\GTK+2\include&quot;;C:\devel\include"
+ 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;_CRT_SECURE_NO_WARNINGS;GMIME_EXPORTS;HAVE_CONFIG_H;G_DISABLE_DEPRECATED;G_LOG_DOMAIN=\&quot;GMime\&quot;"
+ 				MinimalRebuild="true"
+ 				BasicRuntimeChecks="3"

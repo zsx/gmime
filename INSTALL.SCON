@@ -1,0 +1,10 @@
+Build:
+* generate config.h by running:
+	scons --site-dir=..
+* patch build/vs2008/gmime.vcproj to include proper header directories
+	patch < build/vs2008/gmime/gmime.vcproj.patch
+* build with VS 2008 with the solution build/vs2008/gmime.sln
+
+Install:
+* After the successful build, install the head files and compiled library by running:
+	scons --site-dir=.. PREFIX=C:\totem install
