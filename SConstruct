@@ -30,12 +30,16 @@ env['DOT_IN_SUBS'] = {'@PACKAGE_VERSION@': GMIME_VERSION_STRING,
 					  '@GMIME_MICRO_VERSION@': str(GMIME_MICRO_VERSION),
                                           '@GMIME_BINARY_AGE@': str(GMIME_BINARY_AGE),
                                           '@GMIME_INTERFACE_AGE@': str(GMIME_INTERFACE_AGE),
+					  '@VERSION@': GMIME_VERSION_STRING,
+                                          '@GMIME_API_VERSION@': GMIME_API_VERSION_STRING,
+                                          '@GMIME_LIBS@': "-lgmime -lws2_32 -liconv",
 					  '@prefix@': env['PREFIX'],
  					  '@exec_prefix@': '${prefix}/bin',
 					  '@libdir@': '${prefix}/lib',
 					  '@includedir@': '${prefix}/include'}
 env.DotIn('build/vs2008/config-win32.h', 'build/vs2008/config-win32.h.in')
 env.DotIn('gmime/gmime-version.h', 'gmime/gmime-version.h.in')
+env.DotIn('gmime.pc', 'gmime.pc.in')
 gmimeinclude_HEADERS = Split("\
 	gmime.h				\
 	gmime-charset.h			\
@@ -90,20 +94,4 @@ gmimeinclude_HEADERS = Split("\
 
 env.Alias('install', env.Install('$PREFIX/include/gmime-'+ GMIME_API_VERSION_STRING + '/gmime', map(lambda x: "gmime/" + x, gmimeinclude_HEADERS)))
 env.Alias('install', env.Install('$PREFIX/lib', 'build/vs2008/DEBUG/gmime.lib'))
-
-'''
-env.Alias('install', env.Install('$PREFIX/lib/pkgconfig', 'scripts/' + name + '.pc'))
-
-libpng_SOURCES = Split("png.c pngset.c pngget.c pngrutil.c pngtrans.c pngwutil.c \
-	pngread.c pngrio.c pngwio.c pngwrite.c pngrtran.c \
-	pngwtran.c pngmem.c pngerror.c pngpread.c")
-
-env.RES('scripts/pngw32.res', 'scripts/pngw32.rc')
-dll = env.SharedLibrary([libname + env['LIB_SUFFIX'] + '.dll', name + '.lib'], libpng_SOURCES + ['scripts/pngw32.def', 'scripts/pngw32.res'])
-
-env.AddPostAction(dll, 'mt.exe -nologo -manifest ${TARGET}.manifest -outputresource:$TARGET;2')
-
-env.Alias('install', env.Install('$PREFIX/include/' + libname, ['png.h', 'pngconf.h']))
-env.Alias('install', env.Install('$PREFIX/bin', libname + env['LIB_SUFFIX'] + '.dll'))
-env.Alias('install', env.Install('$PREFIX/lib', name + '.lib'))
-'''
+env.Alias('install', env.Install('$PREFIX/lib/pkgconfig', 'gmime.pc'))
